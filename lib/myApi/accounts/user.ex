@@ -20,10 +20,10 @@ defmodule MyApi.Accounts.User do
     user
     |> cast(attrs, [:username, :password, :password_confirmation])
     |> validate_required([:username, :password, :password_confirmation])
-    |> validate_length(:password, min: 8) # Check that password length is >= 8
-    |> validate_confirmation(:password) # Check that password === password_confirmation
+    |> validate_length(:password, min: 8)       # Check that password length is >= 8
+    |> validate_confirmation(:password)         # Check that password === password_confirmation
     |> unique_constraint(:username)
-    |> put_password_hash # Add put_password_hash to changeset pipeline
+    |> put_password_hash                        # Add put_password_hash to changeset pipeline
 
   end
 
