@@ -18,7 +18,7 @@ defmodule MyApi.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :password, :password_confirmation])
+    |> cast(attrs, [:username, :password, :password_confirmation]) #cast
     |> validate_required([:username, :password, :password_confirmation]) #validations required
     |> validate_length(:password, min: 8)       # Check that password length is >= 8
     |> validate_confirmation(:password)         # Check that password === password_confirmation
