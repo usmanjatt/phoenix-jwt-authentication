@@ -18,6 +18,8 @@ defmodule MyApiWeb.Router do
     post "/sign_up", UserController, :create
     post "/sign_in", UserController, :sign_in
 
+    resources "/employees", EmployeeController, except: [:new, :edit]
+
   end
 
 
