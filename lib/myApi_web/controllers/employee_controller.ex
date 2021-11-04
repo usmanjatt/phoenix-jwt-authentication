@@ -35,9 +35,18 @@ defmodule MyApiWeb.EmployeeController do
 
   def delete(conn, %{"id" => id}) do
     employee = Users.get_employee!(id)
-
+    render(conn, "show.json", employee: employee)
     with {:ok, %Employee{}} <- Users.delete_employee(employee) do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def upload(conn, %{"upload" => upload}) do
+
+    IO.inspect(upload.filename)
+
+    #json(conn, filename)
+    render(conn, "upload.json", upload: upload)
+  end
+
 end

@@ -15,6 +15,6 @@ defmodule MyApi.Users.Employee do
   def changeset(employee, attrs) do
     employee
     |> cast(attrs, [:name, :age, :department, :file_path])
-    |> validate_required([:name, :age, :department, :file_path])
+    |> validate_required([:name, :age, :department])
   end
 end

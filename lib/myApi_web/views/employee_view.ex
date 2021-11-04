@@ -17,4 +17,19 @@ defmodule MyApiWeb.EmployeeView do
       department: employee.department,
       file_path: employee.file_path}
   end
+
+  def render("upload.json", %{"upload": upload}) do
+    %{data: render_one(upload, EmployeeView, "file.json")}
+  end
+
+  def render("file.json", %{"upload": upload}) do
+    %{
+      type: upload.content_type,
+      filname: upload.filename,
+      path: upload.path
+    }
+  end
+
+
+
 end

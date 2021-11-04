@@ -4,7 +4,7 @@ defmodule MyApiWeb.Router do
   alias MyApi.Guardian
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug :accepts, ["json", "multiform"]
   end
 
   #Authenticated routes
@@ -18,8 +18,6 @@ defmodule MyApiWeb.Router do
     post "/sign_up", UserController, :create
     post "/sign_in", UserController, :sign_in
 
-    resources "/employees", EmployeeController, except: [:new, :edit]
-
   end
 
 
@@ -28,6 +26,11 @@ defmodule MyApiWeb.Router do
     pipe_through [:api, :jwt_authenticated]
 
     get "/my_user", UserController, :show
+
+    resources "/employees", EmployeeController, except: [:new, :edit]
+
+    post "/upload", FileController, :index
+
   end
 
   # Enables LiveDashboard only for development
