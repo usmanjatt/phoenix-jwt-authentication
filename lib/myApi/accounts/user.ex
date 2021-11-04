@@ -7,10 +7,9 @@ defmodule MyApi.Accounts.User do
   schema "users" do
     field :password_hash, :string
     field :username, :string
-
-      # Virtual fields:
-      field :password, :string, virtual: true
-      field :password_confirmation, :string, virtual: true
+    # Virtual fields:
+    field :password, :string, virtual: true
+    field :password_confirmation, :string, virtual: true
 
     timestamps()
   end
