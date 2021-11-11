@@ -15,10 +15,10 @@ defmodule MyApiWeb.UserControllerTest do
     username: "some username"
   }
 
-  @update_attrs %{
-    password_hash: "some updated password_hash",
-    username: "some updated username"
-  }
+  # @update_attrs %{
+  #   password_hash: "some updated password_hash",
+  #   username: "some updated username"
+  # }
 
   @invalid_attrs %{password_hash: nil, username: nil}
 
@@ -49,7 +49,9 @@ defmodule MyApiWeb.UserControllerTest do
       #          "id" => id,
       #          "password_hash" => "some password_hash",
       #          "username" => "some username"
-      #        } = json_response(conn, 200)["data"]
+      #        } = json_response(conn, 200)
+  # describe "update user" do
+  #   setup [:create_user]["data"]
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
