@@ -8,6 +8,8 @@ defmodule MyApiWeb.UserController do
   action_fallback MyApiWeb.FallbackController
 
   def index(conn, _params) do
+
+    IO.inspect("index")
     users = Accounts.list_users()
     render(conn, "index.json", users: users)
   end
