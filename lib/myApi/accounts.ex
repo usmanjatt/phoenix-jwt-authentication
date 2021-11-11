@@ -23,13 +23,19 @@ defmodule MyApi.Accounts do
     end
   end
 
-  def token_sign_in(username, password) do
+  def token_sign_in(%{"username" => username, "password" => password}) do
     case email_password_auth(username, password) do
       {:ok, user} ->
         Guardian.encode_and_sign(user)
       _ ->
         {:error, :unauthorized}
     end
+  end
+
+  defp email_password_auth(username, password) when username==nil and password==nil do
+    IO.inspect("login cridentials are nil")
+
+     {:error, :invalid_password}
   end
 
   defp email_password_auth(username, password) when is_binary(username) and is_binary(password) do

@@ -22,6 +22,8 @@ defmodule MyApiWeb.UserControllerTest do
 
   @invalid_attrs %{password_hash: nil, username: nil}
 
+  @invalid_attrs_sign_in %{password: nil, username: nil}
+
   def fixture(:user) do
     {:ok, user} = Accounts.create_user(@create_attrs)
     user
@@ -75,8 +77,8 @@ defmodule MyApiWeb.UserControllerTest do
     # end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.user_path(conn, :sign_in), user: @login_in_attrs)
-      assert json_response(conn, 422)["errors"] != %{}
+      conn = post(conn, Routes.user_path(conn, :sign_in), user: @invalid_attrs_sign_in)
+      assert json_response(conn, 401)["errors"] != %{}
     end
 
   end

@@ -57,8 +57,8 @@ defmodule MyApiWeb.UserController do
   # end
 
 
-  def sign_in(conn, %{"username" => username, "password" => password}) do
-    case Accounts.token_sign_in(username, password) do
+  def sign_in(conn, %{"user" => user_params}) do
+    case Accounts.token_sign_in(user_params) do
       {:ok, token, _claims} ->
         conn |> render("jwt.json", jwt: token)
       _ ->
