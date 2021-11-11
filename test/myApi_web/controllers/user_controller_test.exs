@@ -22,14 +22,12 @@ defmodule MyApiWeb.UserControllerTest do
 
   @login_in_attrs_nil %{password: nil, username: nil}
 
+  @invalid_attrs %{password_hash: nil, username: nil}
+
   # @update_attrs %{
   #   password_hash: "some updated password_hash",
   #   username: "some updated username"
   # }
-
-  @invalid_attrs %{password_hash: nil, username: nil}
-
-
 
   def fixture(:user) do
     {:ok, user} = Accounts.create_user(@create_attrs)
@@ -52,15 +50,6 @@ defmodule MyApiWeb.UserControllerTest do
       conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
       assert json_response(conn, 200)["jwt"]
 
-      # conn = get(conn, Routes.user_path(conn, :show, id))
-
-      # assert %{
-      #          "id" => id,
-      #          "password_hash" => "some password_hash",
-      #          "username" => "some username"
-      #        } = json_response(conn, 200)
-      # describe "update user" do
-      #   setup [:create_user]["data"]
     end
 
     test "renders errors when create user data is invalid", %{conn: conn} do
