@@ -20,6 +20,8 @@ defmodule MyApiWeb.UserControllerTest do
     username: "someusername"
   }
 
+  @login_in_attrs_nil %{password: nil, username: nil}
+
   # @update_attrs %{
   #   password_hash: "some updated password_hash",
   #   username: "some updated username"
@@ -27,7 +29,7 @@ defmodule MyApiWeb.UserControllerTest do
 
   @invalid_attrs %{password_hash: nil, username: nil}
 
-  @invalid_attrs_sign_in %{password: nil, username: nil}
+
 
   def fixture(:user) do
     {:ok, user} = Accounts.create_user(@create_attrs)
@@ -48,7 +50,7 @@ defmodule MyApiWeb.UserControllerTest do
   describe "create user" do
     test "renders user when create user data is valid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
-      assert %{"jwt" => jwt} = json_response(conn, 200)["jwt"]
+      assert json_response(conn, 200)["jwt"]
 
       # conn = get(conn, Routes.user_path(conn, :show, id))
 
@@ -69,18 +71,18 @@ defmodule MyApiWeb.UserControllerTest do
 
   describe "sign_in user" do
 
-    test "renders user when signin dat is valid", %{conn: conn} do
+    test "renders signin data is right", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :sign_in), user: @login_in_attrs_right)
-      assert %{"jwt" => jwt} = json_response(conn, 201)["jwt"]
+      assert json_response(conn, 201)["jwt"]
      end
 
-     test "renders user when signin data is wrong", %{conn: conn} do
+     test "renders signin data is wrong", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :sign_in), user: @login_in_attrs_wrong)
       assert json_response(conn, 401)["error"]
      end
 
-    test "renders errors when signin data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.user_path(conn, :sign_in), user: @invalid_attrs_sign_in)
+    test "renders when signin data is nil", %{conn: conn} do
+      conn = post(conn, Routes.user_path(conn, :sign_in), user: @login_in_attrs_nil)
       assert json_response(conn, 401)["errors"] != %{}
     end
 
