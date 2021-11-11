@@ -10,9 +10,14 @@ defmodule MyApiWeb.UserControllerTest do
     username: "some_username"
   }
 
-  @login_in_attrs %{
-    password: "some password",
-    username: "some username"
+  @login_in_attrs_right %{
+    password: "some_password",
+    username: "some_username"
+  }
+
+  @login_in_attrs_wrong %{
+    password: "somepassword",
+    username: "someusername"
   }
 
   # @update_attrs %{
@@ -41,7 +46,7 @@ defmodule MyApiWeb.UserControllerTest do
   end
 
   describe "create user" do
-    test "renders user when data is valid", %{conn: conn} do
+    test "renders user when create user data is valid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
       assert %{"jwt" => jwt} = json_response(conn, 200)["jwt"]
 
@@ -52,31 +57,29 @@ defmodule MyApiWeb.UserControllerTest do
       #          "password_hash" => "some password_hash",
       #          "username" => "some username"
       #        } = json_response(conn, 200)
-  # describe "update user" do
-  #   setup [:create_user]["data"]
+      # describe "update user" do
+      #   setup [:create_user]["data"]
     end
 
-    test "renders errors when data is invalid", %{conn: conn} do
+    test "renders errors when create user data is invalid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :create), user: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
 
   describe "sign_in user" do
-    # test "renders user when data is valid", %{conn: conn} do
-    #   conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
-    #   assert %{"id" => id} = json_response(conn, 201)["data"]
 
-    #   conn = get(conn, Routes.user_path(conn, :si, id))
+    test "renders user when signin dat is valid", %{conn: conn} do
+      conn = post(conn, Routes.user_path(conn, :sign_in), user: @login_in_attrs_right)
+      assert %{"jwt" => jwt} = json_response(conn, 201)["jwt"]
+     end
 
-    #   assert %{
-    #            "id" => id,
-    #            "password_hash" => "some password_hash",
-    #            "username" => "some username"
-    #          } = json_response(conn, 200)["data"]
-    # end
+     test "renders user when signin data is wrong", %{conn: conn} do
+      conn = post(conn, Routes.user_path(conn, :sign_in), user: @login_in_attrs_wrong)
+      assert json_response(conn, 401)["error"]
+     end
 
-    test "renders errors when data is invalid", %{conn: conn} do
+    test "renders errors when signin data is invalid", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :sign_in), user: @invalid_attrs_sign_in)
       assert json_response(conn, 401)["errors"] != %{}
     end
