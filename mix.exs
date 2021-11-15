@@ -20,7 +20,7 @@ defmodule MyApi.MixProject do
   def application do
     [
       mod: {MyApi.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:ex_machina, :logger, :runtime_tools]
     ]
   end
 
@@ -45,7 +45,8 @@ defmodule MyApi.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 1.0"},
-      {:guardian, "~> 1.0"}
+      {:guardian, "~> 1.0"},
+      {:ex_machina, "~> 2.4"}
     ]
   end
 
@@ -63,4 +64,5 @@ defmodule MyApi.MixProject do
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]
   end
+
 end

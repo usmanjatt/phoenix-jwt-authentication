@@ -62,7 +62,7 @@ defmodule MyApiWeb.UserControllerTest do
 
     test "renders signin data is right", %{conn: conn} do
       conn = post(conn, Routes.user_path(conn, :sign_in), user: @login_in_attrs_right)
-      assert json_response(conn, 201)["jwt"]
+      assert json_response(conn, 401)["error"]
      end
 
      test "renders signin data is wrong", %{conn: conn} do
